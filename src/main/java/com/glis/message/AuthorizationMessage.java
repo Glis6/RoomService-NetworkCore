@@ -1,4 +1,4 @@
-package com.glis.io.network;
+package com.glis.message;
 
 import lombok.Data;
 

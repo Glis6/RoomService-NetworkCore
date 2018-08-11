@@ -1,6 +1,6 @@
 package com.glis.io.network.codec;
 
-import com.glis.io.network.AuthorizationMessage;
+import com.glis.message.AuthorizationMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;

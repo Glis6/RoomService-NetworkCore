@@ -1,7 +1,8 @@
-package com.glis.io.network.networktype;
+package com.glis.io.network.server.networktype;
 
 import com.glis.io.network.codec.NetworkMessageEncoder;
 import com.glis.io.network.codec.SubscribeMessageDecoder;
+import com.glis.io.network.networktype.TypeIdentifier;
 import io.netty.channel.ChannelHandlerContext;
 import org.springframework.stereotype.Component;
 

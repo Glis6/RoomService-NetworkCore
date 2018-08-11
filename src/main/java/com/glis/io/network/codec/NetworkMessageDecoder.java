@@ -1,8 +1,8 @@
 package com.glis.io.network.codec;
 
 import com.glis.exceptions.InvalidTypeException;
-import com.glis.message.Message;
 import com.glis.io.network.input.library.MessageLibrary;
+import com.glis.message.Message;
 import com.google.gson.Gson;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

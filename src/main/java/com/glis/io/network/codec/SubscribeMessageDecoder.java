@@ -39,6 +39,7 @@ public class SubscribeMessageDecoder extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         try {
+            logger.info("Decoding a subscribe message...");
             //First we check if we have a type header.
             if (in.readableBytes() < HEADER_LENGTH) {
                 throw new Exception("Received a message with invalid length.");

@@ -1,9 +1,10 @@
-package com.glis.io.network;
+package com.glis.io.network.server;
 
 import com.glis.ApplicationContextProvider;
 import com.glis.exceptions.InvalidTypeException;
-import com.glis.io.network.networktype.NetworkType;
 import com.glis.io.network.networktype.TypeIdentifier;
+import com.glis.io.network.server.networktype.NetworkType;
+import com.glis.message.AuthorizationMessage;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.springframework.context.ApplicationContext;
@@ -15,12 +16,7 @@ import java.util.logging.Logger;
 /**
  * @author Glis
  */
-public final class AuthorizationHandler extends ChannelInboundHandlerAdapter {
-    /**
-     * The length of the header.
-     */
-    private final static int HEADER_LENGTH = Integer.SIZE / Byte.SIZE;
-
+public final class ServerAuthorizationHandler extends ChannelInboundHandlerAdapter {
     /**
      * The {@link Logger} for this class.
      */
@@ -34,7 +30,7 @@ public final class AuthorizationHandler extends ChannelInboundHandlerAdapter {
     /**
      * Creates an instance with all beans that are
      */
-    AuthorizationHandler() {
+    ServerAuthorizationHandler() {
         ApplicationContext context = ApplicationContextProvider.getApplicationContext();
         final Map<Integer, NetworkType> networkTypes = new HashMap<>();
         for (NetworkType networkType : context.getBeansOfType(NetworkType.class).values()) {
@@ -53,14 +49,13 @@ public final class AuthorizationHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if(!(msg instanceof AuthorizationMessage)) {
-            throw new InvalidTypeException("Got a message of the wrong format. Expected a " + AuthorizationMessage.class.getSimpleName() + " message.");
-        }
-        final AuthorizationMessage authorizationMessage = (AuthorizationMessage)msg;
+        throw new InvalidTypeException("Got a message of the wrong format. Expected a " + AuthorizationMessage.class.getSimpleName() + " message.");
+    }
+    final AuthorizationMessage authorizationMessage = (AuthorizationMessage)msg;
         if (!networkTypes.containsKey(authorizationMessage.getNetworkType())) {
-            throw new InvalidTypeException(String.format("The given type does not exist. Received: %d", authorizationMessage.getNetworkType()));
-        }
+        throw new InvalidTypeException(String.format("The given type does not exist. Received: %d", authorizationMessage.getNetworkType()));
+    }
         logger.info("Found a matching " + NetworkType.class.getSimpleName() + ", linking...");
         networkTypes.get(authorizationMessage.getNetworkType()).link(ctx, authorizationMessage.getNetworkName());
-    }
-
+}
 }

@@ -1,4 +1,4 @@
-package com.glis.io.network;
+package com.glis.io.network.server;
 
 import com.glis.io.network.codec.AuthorizationDecoder;
 import io.netty.channel.ChannelInitializer;
@@ -8,7 +8,7 @@ import io.netty.channel.socket.SocketChannel;
 /**
  * @author Glis
  */
-public final class NetworkPipeline extends ChannelInitializer<SocketChannel> {
+public final class ServerNetworkPipeline extends ChannelInitializer<SocketChannel> {
     /**
      * {@inheritDoc}
      */
@@ -16,6 +16,6 @@ public final class NetworkPipeline extends ChannelInitializer<SocketChannel> {
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         final ChannelPipeline pipeline = socketChannel.pipeline();
         pipeline.addFirst(new AuthorizationDecoder());
-        pipeline.addLast(new AuthorizationHandler());
+        pipeline.addLast(new ServerAuthorizationHandler());
     }
 }

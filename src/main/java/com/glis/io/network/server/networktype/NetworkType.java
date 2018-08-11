@@ -1,7 +1,7 @@
-package com.glis.io.network.networktype;
+package com.glis.io.network.server.networktype;
 
-import com.glis.io.network.AuthorizationHandler;
 import com.glis.io.network.codec.AuthorizationDecoder;
+import com.glis.io.network.server.ServerAuthorizationHandler;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
@@ -24,7 +24,7 @@ public interface NetworkType {
     default void link(final ChannelHandlerContext channelHandlerContext, final String networkName) {
         channelHandlerContext.writeAndFlush(channelHandlerContext.alloc().buffer(1).writeByte(1));
         channelHandlerContext.pipeline().remove(AuthorizationDecoder.class);
-        channelHandlerContext.pipeline().remove(AuthorizationHandler.class);
+        channelHandlerContext.pipeline().remove(ServerAuthorizationHandler.class);
         passThrough(channelHandlerContext);
         channelHandlerContext.pipeline().fireChannelActive();
     }
