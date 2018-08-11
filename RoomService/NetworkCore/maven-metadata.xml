@@ -4,8 +4,8 @@
   <artifactId>NetworkCore</artifactId>
   <versioning>
     <versions>
-      <version>1.0-SNAPSHOT</version>
+      <version>1.0.0-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20180811212515</lastUpdated>
+    <lastUpdated>20180811213438</lastUpdated>
   </versioning>
 </metadata>
