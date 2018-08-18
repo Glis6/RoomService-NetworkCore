@@ -6,7 +6,7 @@
 
     <groupId>RoomService</groupId>
     <artifactId>NetworkCore</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 
     <properties>
         <kotlin.version>1.2.51</kotlin.version>
