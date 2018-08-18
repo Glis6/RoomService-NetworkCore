@@ -1,7 +1,6 @@
-package com.glis.io.network.client.networktype;
+package com.glis.io.network.networktype;
 
 import com.glis.io.network.codec.SubscribeMessageEncoder;
-import com.glis.io.network.networktype.TypeIdentifier;
 import io.netty.channel.ChannelHandlerContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,8 +11,7 @@ import java.util.logging.Logger;
  * @author Glis
  */
 @Component
-@TypeIdentifier(2)
-public class Both implements NetworkType {
+public abstract class Both implements NetworkType {
     /**
      * The {@link Logger} for this class.
      */
@@ -49,6 +47,5 @@ public class Both implements NetworkType {
         upstream.passThrough(channelHandlerContext);
         logger.info("Passing though to " + Downstream.class.getSimpleName() +  "...");
         downstream.passThrough(channelHandlerContext);
-        channelHandlerContext.pipeline().remove(SubscribeMessageEncoder.class);
     }
 }
