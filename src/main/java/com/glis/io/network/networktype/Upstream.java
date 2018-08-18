@@ -4,17 +4,17 @@ import com.glis.io.network.codec.NetworkMessageEncoder;
 import io.netty.channel.ChannelHandlerContext;
 import org.springframework.stereotype.Component;
 
-import java.util.logging.Logger;
-
 /**
  * @author Glis
  */
 @Component
-public abstract class Upstream implements NetworkType {
+public abstract class Upstream extends NetworkType {
     /**
-     * The {@link Logger} for this class.
+     * @param customNetworkTypeHandler The {@link CustomNetworkTypeHandler} that handles the custom handling.
      */
-    private final Logger logger = Logger.getLogger(getClass().getName());
+    public Upstream(CustomNetworkTypeHandler customNetworkTypeHandler) {
+        super(customNetworkTypeHandler);
+    }
 
     /**
      * {@inheritDoc}

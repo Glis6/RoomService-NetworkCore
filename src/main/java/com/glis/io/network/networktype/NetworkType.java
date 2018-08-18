@@ -1,32 +1,41 @@
 package com.glis.io.network.networktype;
 
-import com.glis.io.network.codec.AuthorizationDecoder;
-import com.glis.io.network.server.ServerAuthorizationHandler;
 import io.netty.channel.ChannelHandlerContext;
+
+import java.util.logging.Logger;
 
 /**
  * @author Glis
  */
-public interface NetworkType {
+public abstract class NetworkType {
+    /**
+     * The {@link Logger} for this class.
+     */
+    protected final Logger logger = Logger.getLogger(getClass().getName());
+
+    /**
+     * The {@link CustomNetworkTypeHandler} that handles the custom handling.
+     */
+    private final CustomNetworkTypeHandler customNetworkTypeHandler;
+
+    /**
+     * @param customNetworkTypeHandler The {@link CustomNetworkTypeHandler} that handles the custom handling.
+     */
+    NetworkType(CustomNetworkTypeHandler customNetworkTypeHandler) {
+        this.customNetworkTypeHandler = customNetworkTypeHandler;
+    }
+
     /**
      * Makes the network connect to the new handlers.
      *
      * @param channelHandlerContext The channel context.
      */
-    void passThrough(final ChannelHandlerContext channelHandlerContext);
+    protected abstract void passThrough(final ChannelHandlerContext channelHandlerContext);
 
     /**
      * @return The type identifier for this type of network.
      */
-    int getTypeIdentifier();
-
-    /**
-     * The custom actions that get completed by the overwriting class.
-     *
-     * @param channelHandlerContext The channel context.
-     * @param linkData The extra {@link LinkData} provided.
-     */
-    void doCustom(final ChannelHandlerContext channelHandlerContext, final LinkData linkData);
+    protected abstract int getTypeIdentifier();
 
     /**
      * Does all the neccessary networking to connect to the new handlers and disconnect the old ones.
@@ -34,8 +43,8 @@ public interface NetworkType {
      * @param channelHandlerContext The channel context.
      * @param linkData The extra {@link LinkData} provided.
      */
-    default void link(final ChannelHandlerContext channelHandlerContext, final LinkData linkData) {
+    public final void link(final ChannelHandlerContext channelHandlerContext, final LinkData linkData) {
         passThrough(channelHandlerContext);
-        doCustom(channelHandlerContext, linkData);
+        customNetworkTypeHandler.doCustom(channelHandlerContext, linkData);
     }
 }

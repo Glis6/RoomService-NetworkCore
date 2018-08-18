@@ -1,17 +1,13 @@
 package com.glis.io.network.networktype;
 
-import com.glis.io.network.codec.SubscribeMessageEncoder;
 import io.netty.channel.ChannelHandlerContext;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.logging.Logger;
 
 /**
  * @author Glis
  */
-@Component
-public abstract class Both implements NetworkType {
+public abstract class Both extends NetworkType {
     /**
      * The {@link Logger} for this class.
      */
@@ -28,12 +24,12 @@ public abstract class Both implements NetworkType {
     private final Downstream downstream;
 
     /**
-     *
+     * @param customNetworkTypeHandler The {@link CustomNetworkTypeHandler} that handles the custom handling.
      * @param upstream The {@link Upstream} object to link the upstream.
      * @param downstream The {@link Downstream} object to link the downstream.
      */
-    @Autowired
-    public Both(Upstream upstream, Downstream downstream) {
+    public Both(CustomNetworkTypeHandler customNetworkTypeHandler, Upstream upstream, Downstream downstream) {
+        super(customNetworkTypeHandler);
         this.upstream = upstream;
         this.downstream = downstream;
     }
