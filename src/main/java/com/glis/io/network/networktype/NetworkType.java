@@ -35,7 +35,7 @@ public abstract class NetworkType {
     /**
      * @return The type identifier for this type of network.
      */
-    protected abstract int getTypeIdentifier();
+    public abstract int getTypeIdentifier();
 
     /**
      * Does all the neccessary networking to connect to the new handlers and disconnect the old ones.

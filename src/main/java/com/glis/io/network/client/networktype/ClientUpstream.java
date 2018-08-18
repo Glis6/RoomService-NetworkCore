@@ -18,7 +18,7 @@ public final class ClientUpstream extends Upstream {
      * {@inheritDoc}
      */
     @Override
-    protected int getTypeIdentifier() {
+    public int getTypeIdentifier() {
         return 1;
     }
 }

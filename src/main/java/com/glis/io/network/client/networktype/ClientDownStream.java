@@ -19,7 +19,7 @@ public final class ClientDownStream extends Downstream {
      * {@inheritDoc}
      */
     @Override
-    protected int getTypeIdentifier() {
+    public int getTypeIdentifier() {
         return 0;
     }
 }

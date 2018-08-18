@@ -20,7 +20,7 @@ public final class ClientBoth extends Both {
      * {@inheritDoc}
      */
     @Override
-    protected int getTypeIdentifier() {
+    public int getTypeIdentifier() {
         return 2;
     }
 }
