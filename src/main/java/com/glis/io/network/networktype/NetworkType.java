@@ -46,5 +46,6 @@ public abstract class NetworkType {
     public final void link(final ChannelHandlerContext channelHandlerContext, final LinkData linkData) {
         passThrough(channelHandlerContext);
         customNetworkTypeHandler.doCustom(channelHandlerContext, linkData);
+        channelHandlerContext.pipeline().fireChannelActive();
     }
 }

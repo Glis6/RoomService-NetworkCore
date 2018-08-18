@@ -5,6 +5,8 @@ import com.glis.io.network.networktype.Both;
 import com.glis.io.network.networktype.Downstream;
 import com.glis.io.network.networktype.Upstream;
 
+import java.util.NoSuchElementException;
+
 /**
  * @author Glis
  */
@@ -13,7 +15,11 @@ public final class ClientBoth extends Both {
      * {@inheritDoc}
      */
     public ClientBoth(Upstream upstream, Downstream downstream) {
-        super((channelHandlerContext, linkData) -> channelHandlerContext.pipeline().remove(SubscribeMessageEncoder.class), upstream, downstream);
+        super((channelHandlerContext, linkData) -> {
+            try {
+                channelHandlerContext.pipeline().remove(SubscribeMessageEncoder.class);
+            } catch (NoSuchElementException ignored) {}
+        }, upstream, downstream);
     }
 
     /**

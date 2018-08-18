@@ -5,6 +5,8 @@ import com.glis.io.network.networktype.Both;
 import com.glis.io.network.networktype.Downstream;
 import com.glis.io.network.networktype.Upstream;
 
+import java.util.NoSuchElementException;
+
 /**
  * @author Glis
  */
@@ -14,7 +16,11 @@ public final class ServerBoth extends Both {
      * @param downstream The {@link Downstream} to do the linking.
      */
     public ServerBoth(Upstream upstream, Downstream downstream) {
-        super((channelHandlerContext, linkData) -> channelHandlerContext.pipeline().remove(SubscribeMessageDecoder.class), upstream, downstream);
+        super((channelHandlerContext, linkData) -> {
+            try {
+                channelHandlerContext.pipeline().remove(SubscribeMessageDecoder.class);
+            } catch (NoSuchElementException ignored) {}
+        }, upstream, downstream);
     }
 
     /**
