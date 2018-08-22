@@ -14,7 +14,6 @@ import java.util.logging.Logger;
  * @author Glis
  */
 public class AuthorizationDecoder extends ByteToMessageDecoder {
-
     /**
      * The length of the header.
      */
@@ -31,35 +30,46 @@ public class AuthorizationDecoder extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf in, List<Object> out) throws Exception {
         logger.info("Decoding message...");
-        //First we check if we have a type header.
+        //First we check for the client id header.
         if (in.readableBytes() < HEADER_LENGTH) {
             throw new Exception("Received a message with invalid length.");
         }
+        byte[] clientIdHeader = new byte[HEADER_LENGTH];
+        in.readBytes(clientIdHeader, 0, HEADER_LENGTH);
+        ByteBuffer clientIdHeaderBuffer = ByteBuffer.allocate(HEADER_LENGTH).put(clientIdHeader, 0, HEADER_LENGTH);
+        clientIdHeaderBuffer.rewind();
+        final int clientIdLength = clientIdHeaderBuffer.getInt();
 
-        byte[] typeInBytes = new byte[HEADER_LENGTH];
-        in.readBytes(typeInBytes, 0, HEADER_LENGTH);
-        ByteBuffer typeBuffer = ByteBuffer.allocate(HEADER_LENGTH).put(typeInBytes, 0, HEADER_LENGTH);
-        typeBuffer.rewind();
-        final int type = typeBuffer.getInt();
+        if (in.readableBytes() < clientIdLength) {
+            throw new Exception("Received a message with invalid length.");
+        }
 
-        //See if we have enough space to read the second header.
+        //Then we decode the client id.
+        byte[] encodedClientId = new byte[clientIdLength];
+        in.readBytes(encodedClientId, 0, clientIdLength);
+        final String clientId = new String(encodedClientId, StandardCharsets.UTF_8);
+
+
+        //Then we check the client secret length.
         if (in.readableBytes() < HEADER_LENGTH) {
             throw new Exception("Received a message with invalid length.");
         }
-        byte[] nameHeader = new byte[HEADER_LENGTH];
-        in.readBytes(nameHeader, 0, HEADER_LENGTH);
-        ByteBuffer nameHeaderBuffer = ByteBuffer.allocate(HEADER_LENGTH).put(nameHeader, 0, HEADER_LENGTH);
-        nameHeaderBuffer.rewind();
-        final int nameLength = nameHeaderBuffer.getInt();
+        byte[] clientSecretHeader = new byte[HEADER_LENGTH];
+        in.readBytes(clientSecretHeader, 0, HEADER_LENGTH);
+        ByteBuffer clientSecretHeaderBuffer = ByteBuffer.allocate(HEADER_LENGTH).put(clientSecretHeader, 0, HEADER_LENGTH);
+        clientSecretHeaderBuffer.rewind();
+        final int clientSecretLength = clientSecretHeaderBuffer.getInt();
 
-        if (in.readableBytes() < nameLength) {
+        if (in.readableBytes() < clientSecretLength) {
             throw new Exception("Received a message with invalid length.");
         }
 
-        //Then we decode the name.
-        byte[] encodedName = new byte[nameLength];
-        in.readBytes(encodedName, 0, nameLength);
-        final String name = new String(encodedName, StandardCharsets.UTF_8);
-        out.add(new AuthorizationMessage(type, name));
+        //Then we decode the client id.
+        byte[] encodedClientSecret = new byte[clientSecretLength];
+        in.readBytes(encodedClientSecret, 0, clientSecretLength);
+        final String clientSecret = new String(encodedClientSecret, StandardCharsets.UTF_8);
+
+
+        out.add(new AuthorizationMessage(clientId, clientSecret));
     }
 }

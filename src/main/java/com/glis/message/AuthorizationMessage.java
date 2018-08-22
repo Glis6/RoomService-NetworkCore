@@ -1,34 +1,23 @@
 package com.glis.message;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Glis
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class AuthorizationMessage {
     /**
-     * The networkType that is requested to link to.
+     * The name of the network that is connecting.
      */
-    private int networkType;
+    private String clientId;
 
     /**
      * The name of the network that is connecting.
      */
-    private String networkName;
-
-    /**
-     * @param networkType The networkType that is requested to link to.
-     * @param networkName The name of the network that is connecting.
-     */
-    public AuthorizationMessage(int networkType, String networkName) {
-        this.networkType = networkType;
-        this.networkName = networkName;
-    }
-
-    /**
-     * A default constructor.
-     */
-    public AuthorizationMessage() {
-    }
+    private String clientSecret;
 }

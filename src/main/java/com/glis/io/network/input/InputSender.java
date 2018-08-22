@@ -12,12 +12,12 @@ public interface InputSender extends MessageSender {
     String getIdentifier();
 
     /**
-     * @return The host address that the host lives on.
+     * @return The host address that the remove lives on.
      */
-    String getHostAddress();
+    String getRemoteAddress();
 
     /**
-     * @return The port that the host lives on.
+     * @return The host address that the local server lives on.
      */
-    String getConnectionPort();
+    String getLocalAddress();
 }

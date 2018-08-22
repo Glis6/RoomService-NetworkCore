@@ -26,14 +26,16 @@ public class AuthorizationEncoder extends MessageToByteEncoder<AuthorizationMess
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, AuthorizationMessage authorizationMessage, ByteBuf out) throws Exception {
         logger.info("Encoding authorization...");
-        byte[] type = ByteBuffer.allocate(Integer.SIZE / Byte.SIZE).putInt(authorizationMessage.getNetworkType()).array();
-        byte[] name = authorizationMessage.getNetworkName().getBytes(UTF_8);
-        byte[] nameHeader = ByteBuffer.allocate(Integer.SIZE / Byte.SIZE).putInt(name.length).array();
-        byte[] output = new byte[type.length + name.length + nameHeader.length];
+        byte[] clientId = authorizationMessage.getClientId().getBytes(UTF_8);
+        byte[] clientIdHeader = ByteBuffer.allocate(Integer.SIZE / Byte.SIZE).putInt(clientId.length).array();
+        byte[] clientSecret = authorizationMessage.getClientSecret().getBytes(UTF_8);
+        byte[] clientSecretHeader = ByteBuffer.allocate(Integer.SIZE / Byte.SIZE).putInt(clientSecret.length).array();
+        byte[] output = new byte[clientId.length + clientIdHeader.length + clientSecret.length + clientSecretHeader.length];
 
-        System.arraycopy(type, 0, output, 0, type.length);
-        System.arraycopy(nameHeader, 0, output, type.length, nameHeader.length);
-        System.arraycopy(name, 0, output, type.length + nameHeader.length, name.length);
+        System.arraycopy(clientIdHeader, 0, output, 0, clientIdHeader.length);
+        System.arraycopy(clientId, 0, output, clientIdHeader.length, clientId.length);
+        System.arraycopy(clientSecretHeader, 0, output, clientIdHeader.length + clientId.length, clientSecretHeader.length);
+        System.arraycopy(clientSecret, 0, output, clientIdHeader.length + clientId.length + clientSecretHeader.length, clientSecret.length);
 
         out.writeBytes(output);
         logger.info("Authorization encoded as " + Arrays.toString(output));
