@@ -1,11 +1,15 @@
 package com.glis.message;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Glis
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class LedStripColorChangeMessage implements Message {
     /**
      * The red value to set.
