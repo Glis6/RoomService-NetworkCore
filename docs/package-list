@@ -1,8 +1,6 @@
 com.glis
 com.glis.exceptions
 com.glis.io.network
-com.glis.io.network.client
-com.glis.io.network.client.networktype
 com.glis.io.network.codec
 com.glis.io.network.input
 com.glis.io.network.input.dispatcher
@@ -12,7 +10,5 @@ com.glis.io.network.networktype
 com.glis.io.network.output
 com.glis.io.network.output.dispatcher
 com.glis.io.network.output.handlers
-com.glis.io.network.server
-com.glis.io.network.server.networktype
 com.glis.message
 com.glis.util
