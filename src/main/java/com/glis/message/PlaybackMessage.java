@@ -6,7 +6,7 @@ import lombok.Data;
  * @author Glis
  */
 @Data
-public class PlaybackMessage implements Message {
+public final class PlaybackMessage implements Message {
     /**
      * The command that requests the song to be played.
      */

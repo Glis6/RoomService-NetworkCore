@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthorizationMessage {
+public final class AuthorizationMessage {
     /**
      * The name of the network that is connecting.
      */

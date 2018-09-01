@@ -6,7 +6,7 @@ import lombok.Data;
  * @author Glis
  */
 @Data
-public class AccessTokenMessage implements Message {
+public final class AccessTokenMessage implements Message {
     /**
      * The access token for Spotify.
      */
