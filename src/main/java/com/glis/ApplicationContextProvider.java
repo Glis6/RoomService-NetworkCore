@@ -10,7 +10,7 @@ public class ApplicationContextProvider {
     /**
      * The current application context.
      */
-    private final static ApplicationContext APPLICATION_CONTEXT = new AnnotationConfigApplicationContext(SpringConfiguration.class);
+    private final static ApplicationContext APPLICATION_CONTEXT = new AnnotationConfigApplicationContext("com.glis.configuration");
 
     /**
      * @return The {@link ApplicationContext} for the current instance.
