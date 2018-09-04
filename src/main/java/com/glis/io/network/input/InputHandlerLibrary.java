@@ -2,8 +2,6 @@ package com.glis.io.network.input;
 
 import com.glis.io.network.input.handlers.InputHandler;
 import com.glis.util.HandlerLibrary;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -11,7 +9,6 @@ import java.util.stream.Collectors;
 /**
  * @author Glis
  */
-@Service
 public final class InputHandlerLibrary implements HandlerLibrary<InputHandler, Object> {
     /**
      * A {@link List} of all the {@link InputHandler}s.
@@ -21,7 +18,6 @@ public final class InputHandlerLibrary implements HandlerLibrary<InputHandler, O
     /**
      * @param inputHandlers All inputHandlers that are registered.
      */
-    @Autowired
     public InputHandlerLibrary(InputHandler... inputHandlers) {
         this.inputHandlers = Arrays.stream(inputHandlers).collect(Collectors.toSet());
     }

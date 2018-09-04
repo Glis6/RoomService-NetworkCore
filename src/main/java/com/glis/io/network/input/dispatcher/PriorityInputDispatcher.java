@@ -5,8 +5,6 @@ import com.glis.io.network.input.MetaData;
 import com.glis.io.network.input.handlers.HandlerPriority;
 import com.glis.io.network.input.handlers.InputHandler;
 import com.glis.util.HandlerLibrary;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -14,7 +12,6 @@ import java.util.stream.Collectors;
 /**
  * @author Glis
  */
-@Service
 public class PriorityInputDispatcher implements InputDispatcher {
     /**
      * The {@link HandlerLibrary} that is being used to lookup all the handlers.
@@ -24,7 +21,6 @@ public class PriorityInputDispatcher implements InputDispatcher {
     /**
      * @param handlerLibrary The {@link HandlerLibrary} that is being used to lookup all the handlers.
      */
-    @Autowired
     public PriorityInputDispatcher(HandlerLibrary<InputHandler, Object> handlerLibrary) {
         this.handlerLibrary = handlerLibrary;
     }

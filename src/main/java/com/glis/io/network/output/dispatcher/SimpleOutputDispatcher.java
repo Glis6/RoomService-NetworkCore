@@ -4,7 +4,6 @@ import com.glis.exceptions.UnknownHandlerException;
 import com.glis.io.network.output.MessageSender;
 import com.glis.io.network.output.handlers.OutputHandler;
 import com.glis.util.HandlerLibrary;
-import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.logging.Level;
@@ -13,7 +12,6 @@ import java.util.logging.Logger;
 /**
  * @author Glis
  */
-@Service
 public final class SimpleOutputDispatcher implements OutputDispatcher {
     /**
      * The {@link Logger} for this class.
