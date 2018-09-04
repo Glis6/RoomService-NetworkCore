@@ -1,4 +1,5 @@
 com.glis
+com.glis.domain
 com.glis.exceptions
 com.glis.io.network
 com.glis.io.network.codec
